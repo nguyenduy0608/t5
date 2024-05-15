@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4/xpbtd/gMLLPzG/6KlO1Zkv0edt1HeaQZ67XTJPz1x6rGqhI7tY3kDZRNXLhGQdXl3I0SlOlSUY6ypOORpD6g==",
+  "dgSpecHash": "5E6KBWosbM9HYk7Ul6/eb0Hcd9zQQvyM7K/dyTo9Qb2gRiPyJmYyPDKk7HXDUIBmXfwd8W6ukOi9dkGZAR7BQQ==",
   "success": true,
-  "projectFilePath": "E:\\New folder (2)\\New folder\\MIS.csproj",
+  "projectFilePath": "E:\\New folder (3)\\New folder\\MIS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kim Anh - Thanh Binh\\.nuget\\packages\\dapper\\2.1.35\\dapper.2.1.35.nupkg.sha512",
     "C:\\Users\\Kim Anh - Thanh Binh\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
