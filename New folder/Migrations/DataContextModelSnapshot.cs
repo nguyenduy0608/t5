@@ -31,28 +31,28 @@ namespace MIS.Migrations
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Region")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("NUMBER(1)");
 
                     b.HasKey("Id");
 
@@ -67,8 +67,19 @@ namespace MIS.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
 
+                    b.Property<string>("Address")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<DateTime?>("Dob")
+                        .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("NVARCHAR2(2000)");
+
                     b.Property<string>("name")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("id");
@@ -84,49 +95,58 @@ namespace MIS.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Author")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("TIMESTAMP(7)");
+
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<long?>("Warehouseid")
+                    b.Property<long?>("Price")
                         .HasColumnType("NUMBER(19)");
 
-                    b.Property<string>("category")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                    b.Property<long?>("RemainingQuantity")
+                        .HasColumnType("NUMBER(19)");
+
+                    b.Property<long?>("SoldQuantity")
+                        .HasColumnType("NUMBER(19)");
+
+                    b.Property<long?>("WarehouseId")
+                        .HasColumnType("NUMBER(19)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Warehouseid");
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("MIS.Entity.Shop", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(19)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("address")
-                        .IsRequired()
+                    b.Property<string>("Address")
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<string>("name")
-                        .IsRequired()
+                    b.Property<string>("Name")
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<string>("phone")
-                        .IsRequired()
+                    b.Property<string>("Phone")
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Shops");
                 });
@@ -140,11 +160,9 @@ namespace MIS.Migrations
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
@@ -220,23 +238,20 @@ namespace MIS.Migrations
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<long?>("Warehouseid")
+                    b.Property<long?>("WarehouseId")
                         .HasColumnType("NUMBER(19)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Warehouseid");
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Statistics");
                 });
@@ -251,6 +266,12 @@ namespace MIS.Migrations
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("NUMBER(10)");
+
+                    b.Property<long>("MoneySpent")
+                        .HasColumnType("NUMBER(19)");
+
+                    b.Property<long>("Quantity")
+                        .HasColumnType("NUMBER(19)");
 
                     b.Property<int?>("StatisticId")
                         .HasColumnType("NUMBER(10)");
@@ -289,43 +310,41 @@ namespace MIS.Migrations
 
             modelBuilder.Entity("MIS.Entity.Warehouse", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(19)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("Shopid")
+                    b.Property<string>("City")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<long?>("ShopId")
                         .HasColumnType("NUMBER(19)");
 
-                    b.Property<string>("city")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                    b.HasKey("Id");
 
-                    b.Property<string>("country")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Shopid");
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Warehouse");
                 });
 
             modelBuilder.Entity("MIS.Entity.Product", b =>
                 {
-                    b.HasOne("MIS.Entity.Warehouse", null)
+                    b.HasOne("MIS.Entity.Warehouse", "Warehouse")
                         .WithMany("products")
-                        .HasForeignKey("Warehouseid");
+                        .HasForeignKey("WarehouseId");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("MIS.Entity.StaffProduct", b =>
@@ -352,9 +371,11 @@ namespace MIS.Migrations
 
             modelBuilder.Entity("MIS.Entity.Statistic", b =>
                 {
-                    b.HasOne("MIS.Entity.Warehouse", null)
+                    b.HasOne("MIS.Entity.Warehouse", "Warehouse")
                         .WithMany("statistics")
-                        .HasForeignKey("Warehouseid");
+                        .HasForeignKey("WarehouseId");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("MIS.Entity.StatisticCustomer", b =>
@@ -381,9 +402,11 @@ namespace MIS.Migrations
 
             modelBuilder.Entity("MIS.Entity.Warehouse", b =>
                 {
-                    b.HasOne("MIS.Entity.Shop", null)
+                    b.HasOne("MIS.Entity.Shop", "Shop")
                         .WithMany("warehouses")
-                        .HasForeignKey("Shopid");
+                        .HasForeignKey("ShopId");
+
+                    b.Navigation("Shop");
                 });
 
             modelBuilder.Entity("MIS.Entity.Customer", b =>

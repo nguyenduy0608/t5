@@ -15,7 +15,7 @@ namespace MIS.Service
 
         public List<Warehouse> SearchWarehousesByName(string searchQuery)
         {
-            var result = _dataContext.Warehouses.Where(w => w.Name.Contains(searchQuery)).ToList();
+            var result = _dbContext.Warehouse.Where(w => w.Name.Contains(searchQuery)).ToList();
             return result;
         }
         public List<Warehouse> GetAllWarehouses()

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -16,12 +17,14 @@ namespace MIS.Migrations
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Address = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    City = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Region = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    PostalCode = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Country = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Address = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    City = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Region = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Status = table.Column<bool>(type: "NUMBER(1)", nullable: true),
+                    PostalCode = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Country = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -34,7 +37,11 @@ namespace MIS.Migrations
                 {
                     id = table.Column<long>(type: "NUMBER(19)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Dob = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true),
+                    Address = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true),
+                    Gender = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,15 +52,15 @@ namespace MIS.Migrations
                 name: "Shops",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "NUMBER(19)", nullable: false)
+                    Id = table.Column<long>(type: "NUMBER(19)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    address = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    phone = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Address = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Phone = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shops", x => x.id);
+                    table.PrimaryKey("PK_Shops", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,8 +81,8 @@ namespace MIS.Migrations
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,22 +93,22 @@ namespace MIS.Migrations
                 name: "Warehouse",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "NUMBER(19)", nullable: false)
+                    Id = table.Column<long>(type: "NUMBER(19)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    city = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    country = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Shopid = table.Column<long>(type: "NUMBER(19)", nullable: true)
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    City = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Country = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    ShopId = table.Column<long>(type: "NUMBER(19)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Warehouse", x => x.id);
+                    table.PrimaryKey("PK_Warehouse", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Warehouse_Shops_Shopid",
-                        column: x => x.Shopid,
+                        name: "FK_Warehouse_Shops_ShopId",
+                        column: x => x.ShopId,
                         principalTable: "Shops",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -110,19 +117,24 @@ namespace MIS.Migrations
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    category = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Warehouseid = table.Column<long>(type: "NUMBER(19)", nullable: true)
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Category = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Price = table.Column<long>(type: "NUMBER(19)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: true),
+                    RemainingQuantity = table.Column<long>(type: "NUMBER(19)", nullable: true),
+                    SoldQuantity = table.Column<long>(type: "NUMBER(19)", nullable: true),
+                    Author = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    WarehouseId = table.Column<long>(type: "NUMBER(19)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Warehouse_Warehouseid",
-                        column: x => x.Warehouseid,
+                        name: "FK_Products_Warehouse_WarehouseId",
+                        column: x => x.WarehouseId,
                         principalTable: "Warehouse",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -131,19 +143,19 @@ namespace MIS.Migrations
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Type = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Warehouseid = table.Column<long>(type: "NUMBER(19)", nullable: true)
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Type = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    WarehouseId = table.Column<long>(type: "NUMBER(19)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Statistics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Statistics_Warehouse_Warehouseid",
-                        column: x => x.Warehouseid,
+                        name: "FK_Statistics_Warehouse_WarehouseId",
+                        column: x => x.WarehouseId,
                         principalTable: "Warehouse",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -224,6 +236,8 @@ namespace MIS.Migrations
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    MoneySpent = table.Column<long>(type: "NUMBER(19)", nullable: false),
+                    Quantity = table.Column<long>(type: "NUMBER(19)", nullable: false),
                     CustomerId = table.Column<int>(type: "NUMBER(10)", nullable: true),
                     StatisticId = table.Column<int>(type: "NUMBER(10)", nullable: true)
                 },
@@ -243,9 +257,9 @@ namespace MIS.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_Warehouseid",
+                name: "IX_Products_WarehouseId",
                 table: "Products",
-                column: "Warehouseid");
+                column: "WarehouseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffProducts_ProductId",
@@ -278,9 +292,9 @@ namespace MIS.Migrations
                 column: "StatisticId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Statistics_Warehouseid",
+                name: "IX_Statistics_WarehouseId",
                 table: "Statistics",
-                column: "Warehouseid");
+                column: "WarehouseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StatisticsCustomer_CustomerId",
@@ -293,9 +307,9 @@ namespace MIS.Migrations
                 column: "StatisticId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Warehouse_Shopid",
+                name: "IX_Warehouse_ShopId",
                 table: "Warehouse",
-                column: "Shopid");
+                column: "ShopId");
         }
 
         /// <inheritdoc />
