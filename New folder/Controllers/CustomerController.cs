@@ -74,5 +74,17 @@ namespace MIS.Controllers
             _customerService.DeleteCustomer(customer);
             return NoContent();
         }
+        [HttpGet("search")]
+        public IActionResult SearchCustomers(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                return BadRequest("Search query is required.");
+            }
+
+            List<Customer> searchResult = _customerService.SearchCustomersByName(searchQuery);
+
+            return Ok(searchResult);
+        }
     }
 }

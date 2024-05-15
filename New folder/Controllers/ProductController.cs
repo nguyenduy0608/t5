@@ -69,5 +69,17 @@ namespace MIS.Controllers
             _productService.DeleteProduct(product);
             return NoContent();
         }
+        [HttpGet("search")]
+        public IActionResult SearchProducts(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                return BadRequest("Search query is required.");
+            }
+
+            List<Product> searchResult = _productService.SearchProductsByName(searchQuery);
+
+            return Ok(searchResult);
+        }
     }
 }

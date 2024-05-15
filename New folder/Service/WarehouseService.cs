@@ -13,6 +13,11 @@ namespace MIS.Service
             _dbContext = dbContext;
         }
 
+        public List<Warehouse> SearchWarehousesByName(string searchQuery)
+        {
+            var result = _dataContext.Warehouses.Where(w => w.Name.Contains(searchQuery)).ToList();
+            return result;
+        }
         public List<Warehouse> GetAllWarehouses()
         {
             return _dbContext.Warehouse.ToList();

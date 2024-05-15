@@ -14,7 +14,18 @@ namespace MIS.Controllers
         {
             _statisticService = statisticService;
         }
+        [HttpGet("search")]
+        public IActionResult SearchStatistics(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                return BadRequest("Search query is required.");
+            }
 
+            List<Statistic> searchResult = _statisticService.SearchStatisticsByName(searchQuery);
+
+            return Ok(searchResult);
+        }
         [HttpGet]
         public ActionResult<List<Statistic>> GetAllStatistics()
         {

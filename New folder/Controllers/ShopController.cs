@@ -14,6 +14,18 @@ namespace MIS.Controllers
         {
             _shopService = shopService;
         }
+        [HttpGet("search")]
+        public IActionResult SearchShops(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                return BadRequest("Search query is required.");
+            }
+
+            List<Shop> searchResult = _shopService.SearchShopsByName(searchQuery);
+
+            return Ok(searchResult);
+        }
 
         [HttpGet]
         public ActionResult<List<Shop>> GetAllShops()

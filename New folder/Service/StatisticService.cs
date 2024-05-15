@@ -11,7 +11,11 @@ namespace MIS.Service
         {
             _dataContext = dataContext;
         }
-
+        public List<Statistic> SearchStatisticsByName(string searchQuery)
+        {
+            var result = _dataContext.Statistics.Where(s => s.Name.Contains(searchQuery)).ToList();
+            return result;
+        }
         public void CreateStatistic(Statistic statistic)
         {
             _dataContext.Statistics.Add(statistic);

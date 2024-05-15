@@ -14,6 +14,18 @@ namespace MIS.Controllers
         {
             _warehouseService = warehouseService;
         }
+        [HttpGet("search")]
+        public IActionResult SearchWarehouses(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                return BadRequest("Search query is required.");
+            }
+
+            List<Warehouse> searchResult = _warehouseService.SearchWarehousesByName(searchQuery);
+
+            return Ok(searchResult);
+        }
 
         [HttpGet]
         public ActionResult<List<Warehouse>> GetAllWarehouses()

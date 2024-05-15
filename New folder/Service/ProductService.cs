@@ -39,5 +39,10 @@ namespace MIS.Service
             _dataContext.Products.Remove(product);
             _dataContext.SaveChanges();
         }
+        public List<Product> SearchProductsByName(string searchQuery)
+        {
+            var result = _dataContext.Products.Where(p => p.Name.Contains(searchQuery)).ToList();
+            return result;
+        }
     }
 }
